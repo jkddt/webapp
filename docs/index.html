@@ -1,21 +1,45 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>index</title>
-	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>Vue Router</title>
+	<script src="https://cdn.bootcss.com/vue/2.2.4/vue.js"></script>
+	<script src="https://cdn.bootcss.com/vue-router/2.3.0/vue-router.js"></script>
+	<style type="text/css">
+		.router-link-active{
+			color:red;
+		}
+	</style>
 </head>
 <body>
-	<div id="app">
-	{{ message }}
-	<input type="text" v-model="message">
-	</div>
-	<script>
-		var vm = new Vue({
-			el:"#app",
-			data:{
-				message:'测试一下中文？'
-			}
-		})
-	</script>
+<div id="app">
+	<h1>Hello App!</h1>
+	<router-view></router-view>
+	<p>
+		<router-link v-bind:to="{path:'/foo',query:{plan:'private'}}"  active-class="router-link-active">Go to Foo</router-link>
+		<router-link to="/bar">Go to Bar</router-link>
+		<router-link to="/test/123">Go to Test</router-link>
+		<!-- <router-link :to="{path:'home'}">Go to Test</router-link> -->
+	</p>
+	
+</div>
+<script>
+	const Foo = 	{ template:'<div>foo</div>'}
+	const Bar = 	{ template:'<div>bar</div>'}
+	const Test = 	{ template:'<div>Test {{ $route.params.id}}</div>'}
+
+	const routes = [
+		{ path:'/foo',component:Foo},
+		{ path:'/bar',component:Bar},
+		{ path:'/test/:id',component:Test}
+	]
+
+	const router = new VueRouter({
+		routes
+	})
+
+	const app = new Vue({		
+		router
+	}).$mount('#app')
+</script>	
 </body>
 </html>
