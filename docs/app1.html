@@ -7,12 +7,25 @@
 <body>
 <div id="app1">
 	{{ message }}
+	<span v-bind:title="message">鼠标悬停几秒</span>
+	<p v-if="seen">现在你看到我了</p>
+	<ol>
+		<li v-for="todo in todos">
+			{{ todo.text }}
+		</li>
+	</ol>
 </div>
 <script type="text/javascript">
 	var vm = new Vue({
 		el:'#app1',
 		data:{
-			message:'app1,test'
+			message:'app1,test',
+			seen:true,
+			todos:[
+				{text:'学习javascript'},
+				{text:'学习vue'},
+				{text:'整个牛项目'}
+			]
 		}
 	})
 </script>
